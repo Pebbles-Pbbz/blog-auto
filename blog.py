@@ -367,10 +367,10 @@ def run_daily_analysis():
     email_sender.send_blog_post(blog_post, EMAIL_TO)
     
     # 6. 로컬 파일로도 저장 (백업)
-    filename = f"blog_post_{datetime.now().strftime('%Y%m%d_%H%M')}.md"
-    with open(filename, 'w', encoding='utf-8') as f:
-        f.write(blog_post)
-    print(f"블로그 포스트 저장: {filename}")
+    # filename = f"blog_post_{datetime.now().strftime('%Y%m%d_%H%M')}.md"
+    # with open(filename, 'w', encoding='utf-8') as f:
+    #     f.write(blog_post)
+    # print(f"블로그 포스트 저장: {filename}")
     
     # 7. 글자 수 확인
     char_count = len(blog_post)
