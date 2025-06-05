@@ -15,8 +15,7 @@ PERPLEXITY_API_KEY = os.getenv('PERPLEXITY_API_KEY')
 ANTHROPIC_API_KEY = os.getenv('ANTHROPIC_API_KEY')
 RESEND_API_KEY = os.getenv('RESEND_API_KEY')
 EMAIL_FROM = os.getenv('EMAIL_FROM', 'ai-trends@yourdomain.com')
-# EMAIL_TO = os.getenv('EMAIL_TO', 'gyu3637@gmail.com')
-EMAIL_TO = 'gyu3637@gmail.com'
+EMAIL_TO = os.getenv('EMAIL_TO', 'gyu3637@gmail.com')
 
 # Resend 초기화
 resend.api_key = RESEND_API_KEY
