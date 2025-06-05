@@ -18,7 +18,8 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 RESEND_API_KEY = os.getenv('RESEND_API_KEY')
 EMAIL_FROM = os.getenv('EMAIL_FROM', 'blog@company.com')
-EMAIL_TO = os.getenv('EMAIL_TO', '').split(',')
+# EMAIL_TO = os.getenv('EMAIL_TO', '').split(',')
+EMAIL_TO='gyu3637@gmail.com'
 
 # API 키 설정
 client = OpenAI(api_key=OPENAI_API_KEY)
