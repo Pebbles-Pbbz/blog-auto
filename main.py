@@ -43,7 +43,7 @@ class AITrendAnalyzer:
         prompt = (
             """Find today's top 5 AI and tech news that would interest startup founders and developers.\n"""
             """Return ONLY a valid JSON array with objects: {title, summary, implications, url}.\n"""
-            """Focus on launches, open‑source, funding, breakthroughs, APIs, dev tools.\n"""
+            """Focus on launches, open-source, funding, breakthroughs, APIs, dev tools.\n"""
             """Avoid corporate PR and vague announcements."""
         )
 
@@ -80,7 +80,7 @@ class AITrendAnalyzer:
     # 2) Claude: 블로그 포스트 생성 (개선된 프롬프트)
     # -----------------------------
     def generate_with_claude(self) -> str:
-        """Claude‑3.5 Haiku로 최종 Markdown 포스트 작성"""
+        """Claude-3.5 Haiku로 최종 Markdown 포스트 작성"""
         client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
 
         prompt = f"""당신은 스타트업 창업자와 개발자들을 위한 AI 트렌드 분석 전문가입니다.
@@ -103,12 +103,12 @@ class AITrendAnalyzer:
 6. 당장 시도해볼 수 있는 실험이나 프로토타입 아이디어
 
 구조:
-## 🚀 들어가며 (600-800자)
+## 들어가며 (600-800자)
 - 오늘 다룰 핵심 트렌드 3가지를 흥미롭게 소개
 - 왜 지금 이 트렌드들이 중요한지 설명
 - 독자가 얻을 수 있는 구체적인 이익 제시
 
-## 💡 핵심 인사이트 1: [첫 번째 주요 트렌드] (1,200-1,500자)
+## 핵심 인사이트 1: [첫 번째 주요 트렌드] (1,200-1,500자)
 ### 기술의 핵심
 - 기술적 원리와 혁신 포인트를 쉽게 설명
 - 기존 방식과의 차이점
@@ -123,13 +123,13 @@ class AITrendAnalyzer:
 - 실제 코드 스니펫이나 설정 예시
 - 유용한 리소스 링크 (공식 문서, 튜토리얼, 커뮤니티)
 
-## 💡 핵심 인사이트 2: [두 번째 주요 트렌드] (1,200-1,500자)
+## 핵심 인사이트 2: [두 번째 주요 트렌드] (1,200-1,500자)
 [위와 동일한 구조]
 
-## 💡 핵심 인사이트 3: [세 번째 주요 트렌드] (1,200-1,500자)
+## 핵심 인사이트 3: [세 번째 주요 트렌드] (1,200-1,500자)
 [위와 동일한 구조]
 
-## 🛠️ 실무 적용 로드맵 (800-1,000자)
+## 실무 적용 로드맵 (800-1,000자)
 ### 단기 (1-2주)
 - 즉시 실험해볼 수 있는 것들
 - 필요한 최소한의 리소스
@@ -142,12 +142,12 @@ class AITrendAnalyzer:
 - 전략적 도입 방안
 - 조직 차원의 준비사항
 
-## 🎯 액션 아이템 체크리스트
+## 액션 아이템 체크리스트
 - [ ] 오늘 당장 해볼 수 있는 일 5가지
 - [ ] 이번 주에 학습할 리소스 3가지
 - [ ] 다음 달까지 완성할 프로토타입 아이디어 2가지
 
-## 📌 마무리 (400-500자)
+## 마무리 (400-500자)
 - 핵심 메시지 요약
 - 독자에게 동기부여가 되는 메시지
 - 다음 트렌드 예고나 질문 유도
@@ -223,7 +223,7 @@ class AITrendAnalyzer:
         )
 
         # 출처 섹션
-        src_html = '<h3>📚 참고 자료</h3><ol>' + ''.join(
+        src_html = '<h3>참고 자료</h3><ol>' + ''.join(
             f'<li><a href="{u}" target="_blank">{u}</a></li>' for u in sources
         ) + '</ol>'
 
@@ -309,7 +309,7 @@ class AITrendAnalyzer:
             </style>
         </head>
         <body>
-            <h1>🤖 AI 트렌드 인사이트</h1>
+            <h1>AI 트렌드 인사이트</h1>
             {html}
             {src_html}
             <div class="footer">
