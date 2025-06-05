@@ -39,14 +39,15 @@ class AITrendAnalyzer:
             "model": "pplx-7b-online",
             "messages": [{
                 "role": "user",
-                "content": """Find today's top 5 AI and tech news. For each:
+                "content": """Find today's top 5 AI and tech news that would interest startup founders and developers. For each:
                 1. Title
                 2. Brief summary (2-3 sentences)
-                3. Why it matters
+                3. Practical implications for startups/developers
                 4. Source URL
                 
-                Focus on: AI breakthroughs, major tech company announcements, 
-                new product launches, industry trends, regulatory updates."""
+                Focus on: AI product launches, open source releases, funding news, 
+                technical breakthroughs, API updates, developer tools, market analysis.
+                Avoid: corporate PR, vague announcements, overhyped claims."""
             }],
             "temperature": 0.2,
             "max_tokens": 1500
@@ -82,34 +83,44 @@ class AITrendAnalyzer:
             "messages": [
                 {
                     "role": "system",
-                    "content": "당신은 한국의 IT 전문 기자입니다. 기술 트렌드를 깊이 있게 분석하고 한국 시장 관점에서 실용적인 인사이트를 제공합니다."
+                    "content": "AI 시장 전문가. 스타트업과 개발자에게 실용적이고 담담한 인사이트 제공. 과장이나 미사여구 없이 팩트 중심으로 작성."
                 },
                 {
                     "role": "user",
-                    "content": f"""다음 뉴스를 바탕으로 한국 독자를 위한 2500자 블로그 포스트를 작성하세요:
+                    "content": f"""다음 뉴스를 바탕으로 AI 스타트업 대표와 개발자를 위한 블로그 작성:
 
 {self.news_data}
 
+[타겟 독자]
+- AI 시장에 관심있는 스타트업 대표
+- 실무 개발자
+
 [작성 요구사항]
-1. 제목: 오늘의 핵심을 담은 매력적인 제목
+분량: 2500-3000자
+톤앤매너: 밝고 현실적인 분위기, 담담한 지식 전달 (과한 강조나 과장 표현 지양)
 
-2. 구조:
-   - 서론(300자): 오늘의 주요 트렌드 개요와 중요성
-   - 트렌드 1(700자): 
-     * 현황 분석
-     * 기술적 의미
-     * 한국 시장/기업에 미치는 영향
-     * 실무자를 위한 제언
-   - 트렌드 2(700자): 위와 동일한 구조
-   - 트렌드 3(700자): 위와 동일한 구조
-   - 결론(300자): 핵심 시사점과 액션 아이템
+[구조]
+## 1. 인트로 (300자)
+- 기사 기반의 후킹될 수 있는 질문이나 통계로 시작
+- 독자의 현실적 고민과 연결
 
-3. 작성 스타일:
-   - 전문적이지만 이해하기 쉽게
-   - 구체적인 예시와 수치 활용
-   - 한국 기업이나 시장 상황 언급
+## 2. 본문 - 핵심 3가지 (각 600-700자)
+각 섹션별로:
+- 소제목: 50자 내외, 설명적이지 않게 (예: "개발 리스크" X → "정리가 안 되면 생기는 일" O)
+- 내용: 실무적 관점의 팁이나 구체적 사례 중심
+- 정보, 통찰, 리스크 등 다양한 관점 포함
+- 짧고 명확한 단락 구성
 
-4. 형식: 마크다운 사용 (###, **, 등)"""
+## 3. 마무리 (300자)
+- 핵심 요약 정리
+- 실무에 적용 가능한 인사이트나 한 줄 메시지
+
+[스타일 가이드]
+- 마크다운 사용 (##, ###, **굵은글씨**)
+- 구체적 수치나 사례 포함
+- 한국 스타트업이나 개발자 상황에 맞는 예시
+- 지나친 미사여구나 감탄사 배제
+- 간결하고 명확한 문장"""
                 }
             ],
             "temperature": 0.8,
@@ -148,31 +159,34 @@ class AITrendAnalyzer:
             "temperature": 0.3,
             "messages": [{
                 "role": "user",
-                "content": f"""다음 블로그 포스트를 개선해주세요:
+                "content": f"""다음 블로그 포스트를 AI 스타트업과 개발자 타겟에 맞게 개선:
 
 {self.draft_post}
 
 [개선 요청사항]
-1. 문장 다듬기:
-   - 더 자연스럽고 매끄러운 문장으로
-   - 불필요한 반복 제거
-   - 전문 용어는 쉽게 설명
+1. 톤 조정:
+   - 과도한 감탄사나 형용사 제거
+   - 팩트와 데이터 중심으로
+   - 담담하고 객관적인 어조 유지
+   - 현실적이고 실용적인 관점
 
-2. 내용 보강:
-   - 한국 기업 사례 추가 (삼성, LG, 네이버, 카카오 등)
-   - 실무에 바로 적용 가능한 팁 추가
-   - 구체적인 수치나 통계 보완
+2. 내용 개선:
+   - 실제 개발이나 비즈니스에 적용할 수 있는 팁
+   - 구체적인 툴, 라이브러리, API 언급
+   - 실패 사례나 주의점도 균형있게 포함
+   - 과대포장된 내용은 현실적으로 수정
 
-3. 구조 개선:
-   - 단락 간 자연스러운 연결
-   - 핵심 내용 강조 (굵은 글씨 활용)
-   - 읽기 쉬운 문단 구성
+3. 구조 정리:
+   - 소제목은 호기심을 유발하되 과하지 않게
+   - 핵심 정보는 **굵은 글씨**로 강조
+   - 불필요한 수식어 제거
 
-4. 톤 조정:
-   - 전문적이지만 친근한 어투
-   - 독자와 소통하는 느낌
+4. 실무 예시:
+   - 한국 스타트업 환경에 맞는 예시
+   - 개발자가 바로 시도해볼 수 있는 내용
+   - 투자나 채용 관점의 인사이트
 
-최종 결과물은 마크다운 형식으로 작성해주세요."""
+마크다운 형식 유지하되, 깔끔하고 읽기 쉽게 작성."""
             }]
         }
         
@@ -225,7 +239,7 @@ class AITrendAnalyzer:
         """이메일 발송"""
         print("📧 이메일 발송 중...")
         
-        subject = f"[AI 트렌드] {datetime.now().strftime('%Y년 %m월 %d일')} - 오늘의 핵심 인사이트"
+        subject = f"[AI 스타트업 리포트] {datetime.now().strftime('%Y년 %m월 %d일')} - 오늘 놓치면 안 되는 실무 인사이트"
         
         # 마크다운을 HTML로 변환 (간단한 변환)
         html_content = self._markdown_to_html(self.final_post)

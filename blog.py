@@ -18,7 +18,8 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 RESEND_API_KEY = os.getenv('RESEND_API_KEY')
 EMAIL_FROM = os.getenv('EMAIL_FROM', 'blog@company.com')
-EMAIL_TO = os.getenv('EMAIL_TO', '').split(',')
+# EMAIL_TO = os.getenv('EMAIL_TO', '').split(',')
+EMAIL_TO='gyu3637@gmail.com'
 
 # API 키 설정
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -116,31 +117,47 @@ class ITTrendAnalyzer:
             for i, a in enumerate(top_articles)
         ])
         
-        prompt = f"""IT 뉴스 분석하여 3000자 한국어 블로그 작성
+        prompt = f"""AI 시장 관심자를 위한 IT 트렌드 블로그 작성
 
 [뉴스 제목]
 {articles_text}
 
+[타겟 독자]
+- AI 시장에 관심있는 스타트업 대표
+- 실무 개발자
+
 [작성 요구사항]
-분량: 총 3000자
-구성:
-- 서론(300자): 오늘의 핵심 3가지 트렌드 소개
-- 트렌드1(900자): 현황/기술배경/한국시장영향/실무적용
-- 트렌드2(900자): 동일 구조
-- 트렌드3(900자): 동일 구조  
-- 결론(300자): 트렌드 연관성과 액션아이템
+분량: 2500-3000자
+톤앤매너: 밝고 현실적인 분위기, 담담한 지식 전달 (과한 강조나 과장 표현 지양)
 
-스타일: 전문적이면서 실용적, 한국 기업 사례 포함
-형식: 마크다운(###,####), **굵은글씨**, [링크](URL)
+[구조]
+## 1. 인트로 (후킹) - 300자
+- 기사 기반의 후킹될 수 있는 질문이나 통계로 시작
+- 독자의 현실적 고민과 연결
 
-각 트렌드는 구체적 데이터와 실무 인사이트 필수"""
+## 2. 본문 - 핵심 3가지 (각 600-700자)
+각 섹션별로:
+- 소제목: 50자 내외, 설명적이지 않게 (예: "개발 리스크" X → "정리가 안 되면 생기는 일" O)
+- 내용: 실무적 관점의 팁이나 구체적 사례 중심
+- 정보, 통찰, 리스크 등 다양한 관점 포함
+- 짧고 명확한 단락 구성
+
+## 3. 마무리 - 300자
+- 핵심 요약 정리
+- 실무에 적용 가능한 인사이트나 한 줄 메시지
+
+[스타일 가이드]
+- 마크다운 사용 (##, ###, **굵은글씨**)
+- 구체적 수치나 사례 포함
+- 한국 스타트업이나 개발자 상황에 맞는 예시
+- 지나친 미사여구나 감탄사 배제"""
         
         try:
             # 토큰 최적화 설정
             response = client.chat.completions.create(
                 model="gpt-3.5-turbo-16k",  # 비용 효율적인 모델로 변경
                 messages=[
-                    {"role": "system", "content": "IT 전문 기자. 간결하고 인사이트 있는 분석 제공."},
+                    {"role": "system", "content": "AI 시장 전문가. 스타트업과 개발자를 위한 실용적이고 담담한 인사이트 제공."},
                     {"role": "user", "content": prompt}
                 ],
                 temperature=0.7,
@@ -158,7 +175,7 @@ class EmailSender:
         
     def send_blog_post(self, content: str, recipients: List[str]):
         """Resend API를 사용해 블로그 포스트를 이메일로 발송"""
-        subject = f"[IT 트렌드 심층분석] {datetime.now().strftime('%Y년 %m월 %d일')} - 오늘 꼭 알아야 할 Tech 인사이트"
+        subject = f"[AI 트렌드 리포트] {datetime.now().strftime('%Y년 %m월 %d일')} - 스타트업이 놓치면 안 되는 오늘의 인사이트"
         
         # HTML 버전 생성
         html_content = self._markdown_to_html(content)
