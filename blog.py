@@ -355,8 +355,9 @@ def run_daily_analysis():
         return
     
     # 4. GPT 분석
-    print("GPT 분석 중...")
-    blog_post = analyzer.analyze_with_gpt(recent_articles)
+    # print("GPT 분석 중...")
+    # blog_post = analyzer.analyze_with_gpt(recent_articles)
+    blog_post = "test"
     
     if not blog_post:
         print("블로그 포스트 생성 실패")
