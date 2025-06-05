@@ -205,7 +205,7 @@ class AITrendAnalyzer:
         print("🚀 AI 트렌드 분석 시작!")
         self.search_news_with_perplexity()
         self.generate_with_claude()
-        self.save_to_file()
+        # self.save_to_file()
         self.send_email()
         print("🎉 모든 작업 완료!")
 
