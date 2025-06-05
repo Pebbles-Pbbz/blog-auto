@@ -22,7 +22,7 @@ resend.api_key = RESEND_API_KEY
 
 
 class AITrendAnalyzer:
-    """Perplexity → Claude → E‑mail 파이프라인"""
+    """Perplexity → Claude → E-mail 파이프라인"""
 
     def __init__(self):
         self.news_items: List[Dict] = []  # Perplexity JSON
