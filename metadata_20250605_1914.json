@@ -1,9 +1,0 @@
-{
-  "timestamp": "20250605_1914",
-  "news_count": 5,
-  "final_length": 1381,
-  "claude_usage": {
-    "input_tokens": 681,
-    "output_tokens": 1227
-  }
-}
