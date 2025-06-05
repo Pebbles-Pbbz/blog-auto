@@ -18,8 +18,7 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 RESEND_API_KEY = os.getenv('RESEND_API_KEY')
 EMAIL_FROM = os.getenv('EMAIL_FROM', 'blog@company.com')
-# EMAIL_TO = os.getenv('EMAIL_TO', '').split(',')
-EMAIL_TO='gyu3637@gmail.com'
+EMAIL_TO = os.getenv('EMAIL_TO', '').split(',')
 
 # API 키 설정
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -355,9 +354,8 @@ def run_daily_analysis():
         return
     
     # 4. GPT 분석
-    # print("GPT 분석 중...")
-    # blog_post = analyzer.analyze_with_gpt(recent_articles)
-    blog_post = "test"
+    print("GPT 분석 중...")
+    blog_post = analyzer.analyze_with_gpt(recent_articles)
     
     if not blog_post:
         print("블로그 포스트 생성 실패")
