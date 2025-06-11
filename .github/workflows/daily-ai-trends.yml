@@ -3,7 +3,7 @@ name: Daily AI Trends Analysis
 on:
   schedule:
     # 한국시간 오전 9시 = UTC 00:00, 월-금요일만 실행
-    - cron: "0 0 * * 1-5"
+    - cron: "0 23 * * 1-5"
 
   # 수동 실행 가능
   workflow_dispatch:
