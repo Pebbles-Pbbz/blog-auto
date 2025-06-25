@@ -44,7 +44,8 @@ class AITrendAnalyzer:
             """Find today's top 5 AI and tech news that would interest startup founders and developers.\n"""
             """Return ONLY a valid JSON array with objects: {title, summary, implications, url}.\n"""
             """Focus on launches, open-source, funding, breakthroughs, APIs, dev tools.\n"""
-            """Avoid corporate PR and vague announcements."""
+            """Avoid corporate PR and vague announcements.\n"""
+            """Avoid videos such as youtube, tiktok, etc."""
         )
 
         payload = {
@@ -90,28 +91,22 @@ class AITrendAnalyzer:
 {json.dumps(self.news_items, ensure_ascii=False, indent=2)}
 
 작성 가이드라인:
-- 전체 분량: 5,000-7,000자 (공백 포함)
+- 전체 분량: 2500자 - 4000자 (공백 포함)
 - 톤: 전문적이면서도 친근한 대화체
 - 독자: 한국의 스타트업 창업자, CTO, 개발자, 프로덕트 매니저
 
-뉴닉 스타일 푸시 메시지와 실무 인사이트 요약으로 정리해줘.
+1. **반말 톤**으로 말 걸듯 써줘  
+2. **제목은 자극적이고 후킹되게**, 말맛 있게 쓸 것  
+   (예: “AI가 책 읽고 공부했는데… 법원은 OK했대?”)  
 
-형식은 아래와 같아:
-[임팩트 있는 제목]
-(필요하면 부제도 괜찮아)
-[기사 내용의 핵심을 요약한 본문.
- 친근한 톤이지만 맥락과 쟁점을 분명하게 정리하고,
- 짧은 단문으로 핵심을 잘라주는 스타일.
- 사실관계 + 맥락 요약이 조화롭게 섞여야 해.]
+3. 본문 구성은 이 순서로 이모지 포함해서 :
+- :boom: 첫 문단: 요즘 유행하는 사례(혹은 밈)나 공감가는 상황에서 시작  
+- :round_pushpin: 중간 요약: 사건 or 이슈가 뭐였는지 맥락 정리  
+- :eyes: 실무자 시선: “그럼 이걸 우리는 어떻게 받아들여야 할까?” 꼭 포함  
+- :white_check_mark: 마지막 한 줄 요약: 캐주얼하지만 정리되는 문장
 
-실무자라면 이렇게 봐야 해요
-
-[실무 상황 1 - 어떻게 해석할 수 있는지, 어떤 준비가 필요한지(최대한 자세하게)]
-[실무 상황 2 - 이걸 어떤 관점에서 활용하면 도움이 되는지(최대한 자세하게)]
-[특정 타겟(예: 스타트업/기획자/투자자 등)이 얻을 수 있는 교훈이나 전략]
-
-한 줄 요약
- [핵심 메시지를 재치 있게 정리. 맨 밑 요약은 선택이지만 있으면 더 좋아요.]
+4. **친절하지만 가볍게**, “설명해주듯” 말투로  
+5. 너무 설명하거나 교과서처럼 쓰지 말고, **카톡하듯** 쓸 것
 """
 
         resp = client.messages.create(
