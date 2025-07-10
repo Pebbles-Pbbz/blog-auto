@@ -4,7 +4,7 @@ import requests
 from datetime import datetime
 from typing import List, Dict
 import resend
-import anthropic
+import openai
 from dotenv import load_dotenv
 
 # 환경 변수 로드
@@ -12,7 +12,7 @@ load_dotenv()
 
 # API 키 및 이메일 설정
 PERPLEXITY_API_KEY = os.getenv('PERPLEXITY_API_KEY')
-ANTHROPIC_API_KEY = os.getenv('ANTHROPIC_API_KEY')
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 RESEND_API_KEY = os.getenv('RESEND_API_KEY')
 EMAIL_FROM = os.getenv('EMAIL_FROM', 'ai-trends@yourdomain.com')
 EMAIL_TO = os.getenv('EMAIL_TO', 'gyu3637@gmail.com')
@@ -78,11 +78,11 @@ class AITrendAnalyzer:
             raise
 
     # -----------------------------
-    # 2) Claude: 블로그 포스트 생성 (개선된 프롬프트)
+    # 2) OpenAI: 블로그 포스트 생성 (개선된 프롬프트)
     # -----------------------------
-    def generate_with_claude(self) -> str:
-        """Claude-3.5 Haiku로 최종 Markdown 포스트 작성"""
-        client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+    def generate_with_openai(self) -> str:
+        """GPT-4.1로 최종 Markdown 포스트 작성"""
+        client = openai.OpenAI(api_key=OPENAI_API_KEY)
 
         prompt = f"""당신은 스타트업 창업자와 개발자들을 위한 AI 트렌드 분석 전문가입니다.
 아래 뉴스들을 바탕으로 한국어로 심도 있는 블로그 포스트를 작성해주세요.
@@ -109,17 +109,18 @@ class AITrendAnalyzer:
 5. 너무 설명하거나 교과서처럼 쓰지 말고, **카톡하듯** 쓸 것
 """
 
-        resp = client.messages.create(
-            model="claude-3-5-haiku-20241022",
+        resp = client.chat.completions.create(
+            model="gpt-4.1",
+            messages=[{"role": "user", "content": prompt}],
             max_tokens=8192,
-            temperature=0.3,
-            messages=[{"role": "user", "content": prompt}]
+            temperature=0.3
         )
 
-        self.final_post = resp.content[0].text
-        self.debug_info['claude_usage'] = {
-            'input_tokens': resp.usage.input_tokens,
-            'output_tokens': resp.usage.output_tokens,
+        self.final_post = resp.choices[0].message.content
+        self.debug_info['openai_usage'] = {
+            'prompt_tokens': resp.usage.prompt_tokens,
+            'completion_tokens': resp.usage.completion_tokens,
+            'total_tokens': resp.usage.total_tokens,
         }
         return self.final_post
 
@@ -138,7 +139,7 @@ class AITrendAnalyzer:
                 'timestamp': timestamp,
                 'news_count': len(self.news_items),
                 'final_length': len(self.final_post),
-                'claude_usage': self.debug_info.get('claude_usage', {})
+                'openai_usage': self.debug_info.get('openai_usage', {})
             }, f, ensure_ascii=False, indent=2)
 
         print(f"📄 {md_name} & {meta_name} 저장 완료")
@@ -295,7 +296,7 @@ class AITrendAnalyzer:
     def run(self):
         print("🚀 AI 트렌드 분석 시작!")
         self.search_news_with_perplexity()
-        self.generate_with_claude()
+        self.generate_with_openai()
         # self.save_to_file()
         self.send_email()
         print("🎉 모든 작업 완료!")
